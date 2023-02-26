@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TestExpanderr.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModels="clr-namespace:TestExpanderr"
+    Title="Expander"
+    Padding="12,0"
+    x:DataType="viewModels:ExpanderViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                Text="Simple expander" />
+            <mct:Expander>
+                <mct:Expander.Header>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="Simple Expander (Tap Me)" />
+                </mct:Expander.Header>
+
+                <mct:Expander.Content>
+                    <VerticalStackLayout>
+                        <Label Text="Item 1" />
+                        <Label Text="Item 2" />
+                    </VerticalStackLayout>
+                </mct:Expander.Content>
+            </mct:Expander>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                Text="Multi-level expander" />
+            <mct:Expander Direction="Up">
+                <mct:Expander.Header>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="Multi-Level Expander (Tap Me)" />
+                </mct:Expander.Header>
+                <mct:Expander.Content>
+                    <mct:Expander BackgroundColor="LightGray" Direction="Down">
+                        <mct:Expander.Header>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="Nested Expander (Tap Me)" />
+                        </mct:Expander.Header>
+                        <mct:Expander.Content>
+                            <Label Text="Item 1" />
+                        </mct:Expander.Content>
+                    </mct:Expander>
+                </mct:Expander.Content>
+            </mct:Expander>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                Text="Expander in CollectionView" />
+            <CollectionView ItemsSource="{Binding ContentCreators}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:ContentCreator">
+                        <mct:Expander x:DataType="viewModels:ContentCreator" ExpandedChanged="Expander_ExpandedChanged">
+                            <mct:Expander.Header>
+                                <Label Text="{Binding Name}" />
+                            </mct:Expander.Header>
+                            <mct:Expander.Content>
+                                <VerticalStackLayout>
+                                    <Label HorizontalOptions="Center" Text="{Binding Resource}" />
+                                    <Image
+                                        HeightRequest="100"
+                                        Source="{Binding Image}"
+                                        WidthRequest="100" />
+                                </VerticalStackLayout>
+                            </mct:Expander.Content>
+                        </mct:Expander>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
